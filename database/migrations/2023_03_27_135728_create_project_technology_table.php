@@ -18,18 +18,27 @@ return new class extends Migration
             // $table->timestamps();
 
             // Aggiungi FK da project
-            $table->unsignedBigInteger('project_id')->nullable()->after('slug'); 
+            $table->unsignedBigInteger('project_id'); 
             // Rendi la colonna foreign key
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')
+            ->references('id')
+            ->on('projects')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+
 
             // Aggiungi FK da technology
-            $table->unsignedBigInteger('technology_id')->nullable()->after('project_id'); 
+            $table->unsignedBigInteger('technology_id'); 
             // Rendi la colonna foreign key
-            $table->foreign('technology_id')->references('id')->on('technologies');
+            $table->foreign('technology_id')
+            ->references('id')
+            ->on('technologies')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
 
             // Aggiungi identificativo della pivot table (associazione tra project_id e technology_id)
-            // $table->unsignedBigInteger('technology_id')->after('project_id'); 
-
+            $table->primary(['project_id', 'technology_id']);
         });
     }
 
