@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateProjectRequest;
 // Models
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 
 // Facade
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Mail;
 
 // Mails
 use App\Mail\NewProject;
-use App\Models\Technology;
+
 
 class ProjectController extends Controller
 {
@@ -91,10 +92,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Project $project, Technology $technology)
     {
 
-        $technology = Technology::class;
 
         return view('admin.projects.show', [
             'project' => $project,

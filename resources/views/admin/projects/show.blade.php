@@ -39,11 +39,16 @@
                     <h5>
                         Type: {{ $project->type ? $project->type->name : 'Not-specified' }}
                     </h5>
-                    {{-- @if (??)
+                    <p>
+                        Tecnologies:
+                    </p>
+                    @if ($technology->id)
                         <p class="card-text">
-                            Technologies: {{ ?? }}
+                            {{ $technology->name }}
                         </p>
-                    @endif --}}
+                    @endif
+
+                   
                     @if ($project->description)
                         <p class="card-text">
                             Description: {{ $project->description }}
