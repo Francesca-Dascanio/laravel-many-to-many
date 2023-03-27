@@ -27,7 +27,7 @@
                             {{ $technology->id }}
                         </th>
                         <td>
-                            {{ $technology->title }}
+                            {{ $technology->name }}
                         </td>
                         <td>
                             {{ $technology->slug }}
