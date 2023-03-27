@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Mail;
 
 // Mails
 use App\Mail\NewProject;
+use App\Models\Technology;
 
 class ProjectController extends Controller
 {
@@ -45,8 +46,10 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::all();
         return view('admin.projects.create', [
-            'types' => $types
+            'types' => $types,
+            'technologies' => $technologies
         ]);
     }
 
@@ -71,6 +74,10 @@ class ProjectController extends Controller
 
         // Riempio dati + salvo i dati con ::create
         $newProject = Project::create($data);
+
+        foreach ($data['technologies'] as $technologyId) {
+            $newProject->technologies()->attach($technologyId);
+        }
         
         Mail::to(['corinna@traversa.com', 'camilla@scola.com'])->send(new NewProject($newProject));
 

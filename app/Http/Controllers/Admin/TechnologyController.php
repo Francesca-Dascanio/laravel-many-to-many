@@ -33,7 +33,10 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        // $technologies = Technology::all();
+        // return view('admin.technologies.create', [
+        //     'technologies' => $technologies
+        // ]);
     }
 
     /**
@@ -55,7 +58,9 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        //
+        return view('admin.technologies.show', [
+            'technology' => $technology
+        ]);
     }
 
     /**

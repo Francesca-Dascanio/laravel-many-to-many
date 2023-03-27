@@ -50,7 +50,19 @@
                     @endforeach
                   </select>
             </div>
-            <div class="mb-3">
+            {{-- Checkbox per aggiungere tecnologie --}}
+            <div class="mb-2">
+                Technologies
+            </div>
+            @foreach ($technologies as $technology)
+                <input class="form-check-input" type="checkbox" value="{{ $technology->id }}" id="{{ $technology->id }}" name="technologies[]">
+                <label class="form-check-label" for="{{ $technology->id }}">
+                    {{-- Qui nome di ogni tecnologia --}}
+                    {{ $technology->name }}
+                </label>
+            @endforeach
+           
+            <div class="mb-3 mt-3">
                 {{-- Aggiungo type=file e accept (togliere value perchè non tiene old) --}}
                 <label for="img" class="form-label">File (image)</label>
                 <input type="file" class="form-control" name="img" id="img" accept="image/*">
