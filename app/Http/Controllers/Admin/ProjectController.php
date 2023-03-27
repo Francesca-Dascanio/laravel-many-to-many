@@ -95,14 +95,15 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Project $project, Technology $technology)
     {
 
         $technologies = Technology::all();
 
         return view('admin.projects.show', [
             'project' => $project,
-            'technologies' => $technologies
+            'technologies' => $technologies,
+            'technology' => $technology
         ]);
     }
 
