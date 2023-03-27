@@ -93,8 +93,12 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
+
+        $technology = Technology::class;
+
         return view('admin.projects.show', [
-            'project' => $project
+            'project' => $project,
+            'technology' => $technology
         ]);
     }
 

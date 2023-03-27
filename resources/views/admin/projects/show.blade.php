@@ -39,9 +39,16 @@
                     <h5>
                         Type: {{ $project->type ? $project->type->name : 'Not-specified' }}
                     </h5>
-                    <p class="card-text">
-                        Description: {{ $project->description }}
-                    </p>
+                    {{-- @if (??)
+                        <p class="card-text">
+                            Technologies: {{ ?? }}
+                        </p>
+                    @endif --}}
+                    @if ($project->description)
+                        <p class="card-text">
+                            Description: {{ $project->description }}
+                        </p>
+                    @endif
                 </div>
                 <div class="card-footer text-muted">
                     {{ $project->year }}
