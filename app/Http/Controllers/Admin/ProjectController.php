@@ -76,8 +76,11 @@ class ProjectController extends Controller
         // Riempio dati + salvo i dati con ::create
         $newProject = Project::create($data);
 
-        foreach ($data['technologies'] as $technologyId) {
-            $newProject->technologies()->attach($technologyId);
+
+        if(array_key_exists('technologies', $data)) {
+            foreach ($data['technologies'] as $technologyId) {
+                $newProject->technologies()->attach($technologyId);
+            }
         }
         
         Mail::to(['corinna@traversa.com', 'camilla@scola.com'])->send(new NewProject($newProject));
@@ -92,13 +95,14 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project, Technology $technology)
+    public function show(Project $project)
     {
 
+        $technologies = Technology::all();
 
         return view('admin.projects.show', [
             'project' => $project,
-            'technology' => $technology
+            'technologies' => $technologies
         ]);
     }
 
@@ -111,9 +115,11 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
+        $technologies = Technology::all();
         return view('admin.projects.edit', [
             'project' => $project,
-            'types' => $types
+            'types' => $types,
+            'technologies' => $technologies
         ]);
     }
 
@@ -164,6 +170,16 @@ class ProjectController extends Controller
 
         // Utilizzo dati 
         $project->update($data);
+
+        if(array_key_exists('technologies', $data)) {
+            foreach ($data['technologies'] as $technologyId) {
+                $project->technologies()->detach($technologyId);
+            }
+
+            foreach ($data['technologies'] as $technologyId) {
+                $project->technologies()->attach($technologyId);
+            }
+        }
 
         // Redirect
         return redirect()->route('admin.projects.show', $project->id)->with('success', 'The project has been updated successfully!');

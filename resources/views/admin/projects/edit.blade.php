@@ -37,6 +37,22 @@
                     @endforeach
                   </select>
             </div>
+              {{-- Checkbox per aggiungere tecnologie --}}
+              <div class="mb-2">
+                Technologies
+            </div>
+            @foreach ($technologies as $technology)
+                <input class="form-check-input" type="checkbox" value="{{ $technology->id }}" id="{{ $technology->id }}" name="technologies[]" 
+                @if (old('technologies') && is_array(old('technologies')) && count(old('technologies') > 0))
+                    {{ in_array($technology->id, old('technologies')) ? 'checked' : '' }}
+                @elseif ($project->technologies->contains($technology->id))
+                    checked
+                @endif>
+                <label class="form-check-label" for="{{ $technology->id }}">
+                    {{-- Qui nome di ogni tecnologia --}}
+                    {{ $technology->name }}
+                </label>
+            @endforeach
             <div class="mb-3">
                 {{-- Se c'è immagine precedente la mostro insieme al checkbox --}}
                 @if ($project->img)
