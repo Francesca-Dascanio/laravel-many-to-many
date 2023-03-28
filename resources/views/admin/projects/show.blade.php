@@ -42,13 +42,11 @@
                     <p>
                         Tecnologies:
                     </p>
-                    @if ($project->technologies->contains($technology->id))
                     @foreach ($project->technologies as $technology)
                         <p class="card-text">
                             {{ $technology->name }}
                         </p>
                     @endforeach
-                    @endif
 
                    
                     @if ($project->description)
